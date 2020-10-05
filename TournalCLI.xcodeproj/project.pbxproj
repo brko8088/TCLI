@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		598854BF2528416B001FCEAD /* Checklist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 598854BD2528416A001FCEAD /* Checklist.cpp */; };
 		59BA2851251D87C8003D4A89 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 59BA2850251D87C8003D4A89 /* main.cpp */; };
 /* End PBXBuildFile section */
 
@@ -23,6 +24,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		598854BD2528416A001FCEAD /* Checklist.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Checklist.cpp; sourceTree = "<group>"; };
+		598854BE2528416A001FCEAD /* Checklist.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Checklist.hpp; sourceTree = "<group>"; };
 		59BA284D251D87C8003D4A89 /* TournalCLI */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TournalCLI; sourceTree = BUILT_PRODUCTS_DIR; };
 		59BA2850251D87C8003D4A89 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -58,6 +61,8 @@
 			isa = PBXGroup;
 			children = (
 				59BA2850251D87C8003D4A89 /* main.cpp */,
+				598854BD2528416A001FCEAD /* Checklist.cpp */,
+				598854BE2528416A001FCEAD /* Checklist.hpp */,
 			);
 			path = TournalCLI;
 			sourceTree = "<group>";
@@ -118,6 +123,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				598854BF2528416B001FCEAD /* Checklist.cpp in Sources */,
 				59BA2851251D87C8003D4A89 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
