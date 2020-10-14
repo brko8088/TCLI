@@ -18,17 +18,24 @@ class Checklist
 {
 private:
     int ID;
-    string name;
+    string todoName;
     int priority;
     bool isItDone;
     string dueDate;
     
 public:
     Checklist(){
-        name = "";
-        priority = 0;
-        isItDone = false;
-        dueDate = "";
+        setName("");
+        setPriority(0);
+        setItemFinished(false);
+        setDueDate("");
+    }
+    
+    Checklist(string newName){
+        setName(newName);
+        setPriority(1);
+        setItemFinished(false);
+        setDueDate("No Date");
     }
     
     Checklist(string newName, int newPriority, bool newCondition, string newDate){
@@ -36,12 +43,13 @@ public:
         setPriority(newPriority);
         setItemFinished(newCondition);
         setDueDate(newDate);
+        
     }
     
     
     void setName(string name)
     {
-        name = name;
+        todoName = name;
     };
     
     void setPriority(int number)
@@ -63,7 +71,7 @@ public:
     
     string getName()
     {
-        return name;
+        return todoName;
     }
     
     int getPriority()

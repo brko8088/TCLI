@@ -17,18 +17,19 @@ string printHelpMenu();
 
 
 void verifyLastUser();
-string loadPreviousSession(fstream &inputFromFile);
+string loadPreviousSessionUserName(fstream &inputFromFile);
 string loadFileWithPreviousSession(fstream &inputFromFile);
 string confirmationOfPreviousSession(string userName);
 string switchUserName();
-int lookForUsersDatabaseOrCreateNew(string name, fstream &fileManage, Checklist app[]);
-int populateDatabaseFromFile(string name, fstream &fileManage, Checklist tempList[]);
+void lookForUsersDatabaseOrCreateNew(string name, fstream &fileManage, Checklist app[]);
+void populateDatabaseFromFile(string name, fstream &fileManage, Checklist tempList[]);
 void parseItemsOnDatabase(string inputBuffer, int i, Checklist app[]);
 void outputToDatabase(string name, fstream &outputToFile);
 
-bool processCommand (string command, Checklist app[], int todoIndex);
+bool processCommand (string command, Checklist app[]);
 string parseCommand(string command);
-void createNewItem(string command, Checklist app[], int todoIndex);
+bool createNewItem(string command, Checklist app[]);
+bool displayTodoList(Checklist app[]);
 
 unsigned long splitUserInputCommand(string userInputCommand[]);
 unsigned long validateCommand(string command[], bool &validCommand);
@@ -51,8 +52,8 @@ int main() {
     cout << "Tournal Command Line Interface (TCLI)" << endl;
     cout << "Current Version: " + TCLIversion << endl;
     
-    userName = loadPreviousSession(inputFromFile);
-    int todoIndex = lookForUsersDatabaseOrCreateNew(userName, inputFromFile, app);
+    userName = loadPreviousSessionUserName(inputFromFile);
+    lookForUsersDatabaseOrCreateNew(userName, inputFromFile, app);
     outputToDatabase(userName, outputToFile);
     
     
@@ -61,7 +62,7 @@ int main() {
     {
         cout << userName + "@TCLI~" + TCLIversion + "~$ " ;
         getline(cin, command);
-        programState = processCommand(command, app, todoIndex);
+        programState = processCommand(command, app);
     }
     
     return 0;
@@ -92,7 +93,7 @@ string printHelpMenu()
  
  It will ask for the user to verify if it's them or ask us to enter a new username.
  */
-string loadPreviousSession(fstream &inputFromFile)
+string loadPreviousSessionUserName(fstream &inputFromFile)
 {
     string userName = loadFileWithPreviousSession(inputFromFile);
     if (userName == "")
@@ -118,7 +119,7 @@ string loadFileWithPreviousSession(fstream &inputFromFile)
     inputFromFile.open("lastestUserUsingTheApp.txt", ios::in);
     if (!inputFromFile)
     {
-        cout << "This failed" << endl;
+        cout << "Creating New User Profile" << endl;
     }
     else
     {
@@ -167,11 +168,9 @@ string switchUserName()
     return userName;
 }
 
-int lookForUsersDatabaseOrCreateNew(string name, fstream &inputFromFile, Checklist app[])
+void lookForUsersDatabaseOrCreateNew(string name, fstream &inputFromFile, Checklist app[])
 {
     inputFromFile.open(name + ".txt", ios::in);
-    
-    int todoIndex = 0;
     
     if (!inputFromFile)
     {
@@ -179,18 +178,18 @@ int lookForUsersDatabaseOrCreateNew(string name, fstream &inputFromFile, Checkli
     }
     else
     {
-        todoIndex = populateDatabaseFromFile(name, inputFromFile, app);
+        populateDatabaseFromFile(name, inputFromFile, app);
         cout << "database loaded" << endl;
     }
     inputFromFile.close();
-    return todoIndex;
 }
 
 
-int populateDatabaseFromFile(string name, fstream &inputFromFile, Checklist app[])
+void populateDatabaseFromFile(string name, fstream &inputFromFile, Checklist app[])
 {
     string inputBuffer;
     int todoIndex = 0;
+    cout << "\n\n";
     cout << setw(8) << left << "ITEM ID" <<
             setw(10)<< left << "finished?" <<
             setw(10)<< left << "Priority" <<
@@ -203,11 +202,12 @@ int populateDatabaseFromFile(string name, fstream &inputFromFile, Checklist app[
         todoIndex++;
     }
     
-    return todoIndex;
+    cout << "\n\n";
 }
 
 void parseItemsOnDatabase(string inputBuffer, int todoIndex, Checklist app[])
 {
+    
     size_t delimeterPos = inputBuffer.find('/');
     string name = inputBuffer.substr(0, delimeterPos);
     inputBuffer = inputBuffer.substr(delimeterPos + 1);
@@ -229,8 +229,10 @@ void parseItemsOnDatabase(string inputBuffer, int todoIndex, Checklist app[])
     {
         condition = false;
     }
+    
     app[todoIndex] = Checklist(name, priority, condition, date);
     cout << app[todoIndex].displayItem(todoIndex) << endl;
+    
 }
 
 void outputToDatabase(string name, fstream &outputToFile)
@@ -243,7 +245,7 @@ void outputToDatabase(string name, fstream &outputToFile)
 
 
 
-bool processCommand (string command, Checklist app[], int todoIndex)
+bool processCommand (string command, Checklist app[])
 {
     size_t delimeterPos = command.find(' ');
     string action = command.substr(0, delimeterPos);
@@ -259,8 +261,11 @@ bool processCommand (string command, Checklist app[], int todoIndex)
     
     if (action == "create")
     {
-        createNewItem(command, app, todoIndex);
-        return true;
+        return createNewItem(command, app);
+    }
+    else if (action == "display")
+    {
+        return displayTodoList(app);
     }
     else if (action == "delete")
     {
@@ -274,7 +279,8 @@ bool processCommand (string command, Checklist app[], int todoIndex)
     {
         return true;
     }
-    else if (action == "exit"){
+    else if (action == "exit")
+    {
         return false;
     }
     else {
@@ -289,18 +295,35 @@ string parseCommand(string command){
     return item;
 }
 
-void createNewItem(string command, Checklist app[], int todoIndex )
+bool createNewItem(string command, Checklist app[])
 {
-    for (int todoIndex = 0; todoIndex < 1000; todoIndex++)
-    if (app[todoIndex].getName() == ""){
-        if (command == "")
-        {
-            
-        }
+    int todoIndex = 0;
+    while (app[todoIndex].getName() != ""){
+        todoIndex++;
     }
+    app[todoIndex] = Checklist(command);
+    return true;
 }
 
-
+bool displayTodoList(Checklist app[]){
+    
+    cout << "\n\n";
+    cout << setw(8) << left << "ITEM ID" <<
+            setw(10)<< left << "finished?" <<
+            setw(10)<< left << "Priority" <<
+            setw(40)<< left << "Activity to do" <<
+    setw(25)<< left << "Date that is due" << endl;
+    cout << "------------------------------------------------------------------------------------" << endl;
+    
+    for (int todoIndex = 0; todoIndex < 1000; todoIndex++){
+        if (app[todoIndex].getName() != "") {
+            cout << app[todoIndex].displayItem(todoIndex) << endl;
+        }
+    }
+    
+    cout << "\n\n";
+    return true;
+}
 
 
 
