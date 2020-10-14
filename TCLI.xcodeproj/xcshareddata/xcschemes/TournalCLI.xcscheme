@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "59BA284C251D87C8003D4A89"
-               BuildableName = "TournalCLI"
-               BlueprintName = "TournalCLI"
-               ReferencedContainer = "container:TournalCLI.xcodeproj">
+               BuildableName = "TCLI"
+               BlueprintName = "TCLI"
+               ReferencedContainer = "container:TCLI.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -46,9 +46,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "59BA284C251D87C8003D4A89"
-            BuildableName = "TournalCLI"
-            BlueprintName = "TournalCLI"
-            ReferencedContainer = "container:TournalCLI.xcodeproj">
+            BuildableName = "TCLI"
+            BlueprintName = "TCLI"
+            ReferencedContainer = "container:TCLI.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -63,9 +63,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "59BA284C251D87C8003D4A89"
-            BuildableName = "TournalCLI"
-            BlueprintName = "TournalCLI"
-            ReferencedContainer = "container:TournalCLI.xcodeproj">
+            BuildableName = "TCLI"
+            BlueprintName = "TCLI"
+            ReferencedContainer = "container:TCLI.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

@@ -26,7 +26,7 @@
 /* Begin PBXFileReference section */
 		598854BD2528416A001FCEAD /* Checklist.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Checklist.cpp; sourceTree = "<group>"; };
 		598854BE2528416A001FCEAD /* Checklist.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Checklist.hpp; sourceTree = "<group>"; };
-		59BA284D251D87C8003D4A89 /* TournalCLI */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TournalCLI; sourceTree = BUILT_PRODUCTS_DIR; };
+		59BA284D251D87C8003D4A89 /* TCLI */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TCLI; sourceTree = BUILT_PRODUCTS_DIR; };
 		59BA2850251D87C8003D4A89 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -44,7 +44,7 @@
 		59BA2844251D87C8003D4A89 = {
 			isa = PBXGroup;
 			children = (
-				59BA284F251D87C8003D4A89 /* TournalCLI */,
+				59BA284F251D87C8003D4A89 /* TCLI */,
 				59BA284E251D87C8003D4A89 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -52,27 +52,27 @@
 		59BA284E251D87C8003D4A89 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				59BA284D251D87C8003D4A89 /* TournalCLI */,
+				59BA284D251D87C8003D4A89 /* TCLI */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		59BA284F251D87C8003D4A89 /* TournalCLI */ = {
+		59BA284F251D87C8003D4A89 /* TCLI */ = {
 			isa = PBXGroup;
 			children = (
 				59BA2850251D87C8003D4A89 /* main.cpp */,
 				598854BD2528416A001FCEAD /* Checklist.cpp */,
 				598854BE2528416A001FCEAD /* Checklist.hpp */,
 			);
-			path = TournalCLI;
+			path = TCLI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		59BA284C251D87C8003D4A89 /* TournalCLI */ = {
+		59BA284C251D87C8003D4A89 /* TCLI */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 59BA2854251D87C8003D4A89 /* Build configuration list for PBXNativeTarget "TournalCLI" */;
+			buildConfigurationList = 59BA2854251D87C8003D4A89 /* Build configuration list for PBXNativeTarget "TCLI" */;
 			buildPhases = (
 				59BA2849251D87C8003D4A89 /* Sources */,
 				59BA284A251D87C8003D4A89 /* Frameworks */,
@@ -82,9 +82,9 @@
 			);
 			dependencies = (
 			);
-			name = TournalCLI;
+			name = TCLI;
 			productName = TournalCLI;
-			productReference = 59BA284D251D87C8003D4A89 /* TournalCLI */;
+			productReference = 59BA284D251D87C8003D4A89 /* TCLI */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -100,7 +100,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 59BA2848251D87C8003D4A89 /* Build configuration list for PBXProject "TournalCLI" */;
+			buildConfigurationList = 59BA2848251D87C8003D4A89 /* Build configuration list for PBXProject "TCLI" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -113,7 +113,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				59BA284C251D87C8003D4A89 /* TournalCLI */,
+				59BA284C251D87C8003D4A89 /* TCLI */,
 			);
 		};
 /* End PBXProject section */
@@ -265,7 +265,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		59BA2848251D87C8003D4A89 /* Build configuration list for PBXProject "TournalCLI" */ = {
+		59BA2848251D87C8003D4A89 /* Build configuration list for PBXProject "TCLI" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				59BA2852251D87C8003D4A89 /* Debug */,
@@ -274,7 +274,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		59BA2854251D87C8003D4A89 /* Build configuration list for PBXNativeTarget "TournalCLI" */ = {
+		59BA2854251D87C8003D4A89 /* Build configuration list for PBXNativeTarget "TCLI" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				59BA2855251D87C8003D4A89 /* Debug */,
