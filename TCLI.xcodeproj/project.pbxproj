@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		598854BF2528416B001FCEAD /* Checklist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 598854BD2528416A001FCEAD /* Checklist.cpp */; };
 		59BA2851251D87C8003D4A89 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 59BA2850251D87C8003D4A89 /* main.cpp */; };
+		59FE91B7253BD16B000D0E3A /* TextEntry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 59FE91B5253BD16B000D0E3A /* TextEntry.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -28,6 +29,8 @@
 		598854BE2528416A001FCEAD /* Checklist.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Checklist.hpp; sourceTree = "<group>"; };
 		59BA284D251D87C8003D4A89 /* TCLI */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TCLI; sourceTree = BUILT_PRODUCTS_DIR; };
 		59BA2850251D87C8003D4A89 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		59FE91B5253BD16B000D0E3A /* TextEntry.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TextEntry.cpp; sourceTree = "<group>"; };
+		59FE91B6253BD16B000D0E3A /* TextEntry.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TextEntry.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +66,8 @@
 				59BA2850251D87C8003D4A89 /* main.cpp */,
 				598854BD2528416A001FCEAD /* Checklist.cpp */,
 				598854BE2528416A001FCEAD /* Checklist.hpp */,
+				59FE91B5253BD16B000D0E3A /* TextEntry.cpp */,
+				59FE91B6253BD16B000D0E3A /* TextEntry.hpp */,
 			);
 			path = TCLI;
 			sourceTree = "<group>";
@@ -125,6 +130,7 @@
 			files = (
 				598854BF2528416B001FCEAD /* Checklist.cpp in Sources */,
 				59BA2851251D87C8003D4A89 /* main.cpp in Sources */,
+				59FE91B7253BD16B000D0E3A /* TextEntry.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
