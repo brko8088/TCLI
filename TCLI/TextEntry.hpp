@@ -30,17 +30,19 @@ class TextEntry {
     
     TextEntry(){
         setTitle("");
-        setParagraph(0);
+        setParagraph("");
         paragraphAmount++;
     }
     
     TextEntry(string newTitle){
         setTitle(newTitle);
+        setParagraph("");
         paragraphAmount++;
     }
     
-    TextEntry(string newTitle, int newPriority, bool newCondition, string newDate){
+    TextEntry(string newTitle, string newParagraph){
         setTitle(newTitle);
+        setParagraph(newParagraph);
         paragraphAmount++;
     }
     
@@ -50,9 +52,15 @@ class TextEntry {
         this->title = title;
     };
     
-    void setParagraph(int paragraphNumber)
+    void setParagraph(string paragraph)
     {
-        this->paragraph[paragraphAmount] = paragraphNumber;
+        string* newParagraph = new string[paragraphAmount + 1];
+        for (int index = 0; index < paragraphAmount; index++)
+        {
+            newParagraph[index] = this->paragraph[index];
+        }
+        newParagraph[paragraphAmount] = paragraph;
+        this->paragraph = newParagraph;
     };
     
     void setTimeStamp(int paragraphNumber)
