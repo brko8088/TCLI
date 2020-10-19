@@ -6,6 +6,7 @@
 //
 
 #include "Checklist.hpp"
+#include "TextEntry.hpp"
 #include <iostream>
 #include <string>
 #include <sstream>
@@ -21,15 +22,16 @@ string loadPreviousSessionUserName(fstream &inputFromFile);
 string loadFileWithPreviousSession(fstream &inputFromFile);
 string confirmationOfPreviousSession(string userName);
 string switchUserName();
-void lookForUsersDatabaseOrCreateNew(string name, fstream &fileManage, Checklist app[]);
+void lookForUsersDatabaseOrCreateNew(string name, fstream &fileManage, Checklist todoList[]);
 void populateDatabaseFromFile(string name, fstream &fileManage, Checklist tempList[]);
-void parseItemsOnDatabase(string inputBuffer, int i, Checklist app[]);
+void parseItemsOnDatabase(string inputBuffer, int i, Checklist todoList[]);
 void outputToDatabase(string name, fstream &outputToFile);
 
-bool processCommand (string command, Checklist app[]);
+bool processCommand (string command, Checklist todoList[], TextEntry journal[]);
 string parseCommand(string command);
-bool createNewItem(string command, Checklist app[]);
-bool displayTodoList(Checklist app[]);
+bool createNewItem(string command, Checklist todoList[]);
+bool displayTodoList(Checklist todoList[]);
+bool createTextEntry(string command, TextEntry journal[]);
 
 unsigned long splitUserInputCommand(string userInputCommand[]);
 unsigned long validateCommand(string command[], bool &validCommand);
@@ -47,13 +49,14 @@ int main() {
     string userInputCommand[10];
     string userName;
     bool programState = true;
-    Checklist app[1000];
+    Checklist todoList[100];
+    TextEntry journal[100];
     
     cout << "Tournal Command Line Interface (TCLI)" << endl;
     cout << "Current Version: " + TCLIversion << endl;
     
     userName = loadPreviousSessionUserName(inputFromFile);
-    lookForUsersDatabaseOrCreateNew(userName, inputFromFile, app);
+    lookForUsersDatabaseOrCreateNew(userName, inputFromFile, todoList);
     outputToDatabase(userName, outputToFile);
     
     
@@ -62,7 +65,7 @@ int main() {
     {
         cout << userName + "@TCLI~" + TCLIversion + "~$ " ;
         getline(cin, command);
-        programState = processCommand(command, app);
+        programState = processCommand(command, todoList, journal);
     }
     
     return 0;
@@ -168,7 +171,7 @@ string switchUserName()
     return userName;
 }
 
-void lookForUsersDatabaseOrCreateNew(string name, fstream &inputFromFile, Checklist app[])
+void lookForUsersDatabaseOrCreateNew(string name, fstream &inputFromFile, Checklist todoList[])
 {
     inputFromFile.open(name + ".txt", ios::in);
     
@@ -178,14 +181,14 @@ void lookForUsersDatabaseOrCreateNew(string name, fstream &inputFromFile, Checkl
     }
     else
     {
-        populateDatabaseFromFile(name, inputFromFile, app);
+        populateDatabaseFromFile(name, inputFromFile, todoList);
         cout << "database loaded" << endl;
     }
     inputFromFile.close();
 }
 
 
-void populateDatabaseFromFile(string name, fstream &inputFromFile, Checklist app[])
+void populateDatabaseFromFile(string name, fstream &inputFromFile, Checklist todoList[])
 {
     string inputBuffer;
     int todoIndex = 0;
@@ -198,14 +201,14 @@ void populateDatabaseFromFile(string name, fstream &inputFromFile, Checklist app
     cout << "------------------------------------------------------------------------------------" << endl;
     while(getline(inputFromFile, inputBuffer))
     {
-        parseItemsOnDatabase(inputBuffer, todoIndex, app);
+        parseItemsOnDatabase(inputBuffer, todoIndex, todoList);
         todoIndex++;
     }
     
     cout << "\n\n";
 }
 
-void parseItemsOnDatabase(string inputBuffer, int todoIndex, Checklist app[])
+void parseItemsOnDatabase(string inputBuffer, int todoIndex, Checklist todoList[])
 {
     
     size_t delimeterPos = inputBuffer.find('/');
@@ -230,8 +233,8 @@ void parseItemsOnDatabase(string inputBuffer, int todoIndex, Checklist app[])
         condition = false;
     }
     
-    app[todoIndex] = Checklist(name, priority, condition, date);
-    cout << app[todoIndex].displayItem(todoIndex) << endl;
+    todoList[todoIndex] = Checklist(name, priority, condition, date);
+    cout << todoList[todoIndex].displayItem(todoIndex) << endl;
     
 }
 
@@ -245,7 +248,7 @@ void outputToDatabase(string name, fstream &outputToFile)
 
 
 
-bool processCommand (string command, Checklist app[])
+bool processCommand (string command, Checklist todoList[], TextEntry journal[])
 {
     size_t delimeterPos = command.find(' ');
     string action = command.substr(0, delimeterPos);
@@ -261,11 +264,15 @@ bool processCommand (string command, Checklist app[])
     
     if (action == "create")
     {
-        return createNewItem(command, app);
+        return createNewItem(command, todoList);
+    }
+    else if (action == "entry")
+    {
+        return createTextEntry(command, journal);
     }
     else if (action == "display")
     {
-        return displayTodoList(app);
+        return displayTodoList(todoList);
     }
     else if (action == "delete")
     {
@@ -295,17 +302,17 @@ string parseCommand(string command){
     return item;
 }
 
-bool createNewItem(string command, Checklist app[])
+bool createNewItem(string command, Checklist todoList[])
 {
     int todoIndex = 0;
-    while (app[todoIndex].getName() != ""){
+    while (todoList[todoIndex].getName() != ""){
         todoIndex++;
     }
-    app[todoIndex] = Checklist(command);
+    todoList[todoIndex] = Checklist(command);
     return true;
 }
 
-bool displayTodoList(Checklist app[]){
+bool displayTodoList(Checklist todoList[]){
     
     cout << "\n\n";
     cout << setw(8) << left << "ITEM ID" <<
@@ -316,8 +323,8 @@ bool displayTodoList(Checklist app[]){
     cout << "------------------------------------------------------------------------------------" << endl;
     
     for (int todoIndex = 0; todoIndex < 1000; todoIndex++){
-        if (app[todoIndex].getName() != "") {
-            cout << app[todoIndex].displayItem(todoIndex) << endl;
+        if (todoList[todoIndex].getName() != "") {
+            cout << todoList[todoIndex].displayItem(todoIndex) << endl;
         }
     }
     
@@ -325,7 +332,25 @@ bool displayTodoList(Checklist app[]){
     return true;
 }
 
-
+bool createTextEntry(string command, TextEntry journal[])
+{
+    string title;
+    if (command != "")
+    {
+        title = command;
+    }
+    else
+    {
+        cout << "Title: ";
+        getline(cin, title);
+    }
+    
+    while ()
+    getline()
+    
+    
+    return true;
+}
 
 
 
