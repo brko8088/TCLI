@@ -47,6 +47,9 @@ public:
     }
     
     
+    /*
+     Setters
+     */
     void setName(string name)
     {
         todoName = name;
@@ -68,7 +71,9 @@ public:
     };
     
     
-    
+    /*
+     Getters
+     */
     string getName()
     {
         return todoName;

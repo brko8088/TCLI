@@ -14,6 +14,7 @@
 #include <iomanip>
 #include <chrono>
 #include <ctime>
+#include <vector>
 
 using namespace std;
 static int paragraphAmount = 0;
@@ -23,8 +24,8 @@ class TextEntry {
     private:
     
     string title;
-    string paragraph[1];
-    time_t timeStamp[1];
+    vector<string> paragraph;
+    vector<time_t> timeStamp;
     
     public:
     
@@ -57,19 +58,13 @@ class TextEntry {
     
     void setParagraph(string paragraph)
     {
-        string* newParagraph = new string[paragraphAmount + 1];
-        for (int index = 0; index < paragraphAmount; index++)
-        {
-            newParagraph[index] = this->paragraph[index];
-        }
-        newParagraph[paragraphAmount] = paragraph;
-        this->paragraph = newParagraph;
+        this->paragraph.push_back(paragraph);
     };
     
     void setTimeStamp(int paragraphNumber)
     {
         auto currentTime = std::chrono::system_clock::now();
-        this->timeStamp[paragraphNumber] = std::chrono::system_clock::to_time_t(currentTime);
+        this->timeStamp.push_back(std::chrono::system_clock::to_time_t(currentTime));
     };
     
     string getTitle()
