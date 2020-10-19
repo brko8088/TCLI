@@ -31,18 +31,21 @@ class TextEntry {
     TextEntry(){
         setTitle("");
         setParagraph("");
+        setTimeStamp(paragraphAmount);
         paragraphAmount++;
     }
     
     TextEntry(string newTitle){
         setTitle(newTitle);
         setParagraph("");
+        setTimeStamp(paragraphAmount);
         paragraphAmount++;
     }
     
     TextEntry(string newTitle, string newParagraph){
         setTitle(newTitle);
         setParagraph(newParagraph);
+        setTimeStamp(paragraphAmount);
         paragraphAmount++;
     }
     
