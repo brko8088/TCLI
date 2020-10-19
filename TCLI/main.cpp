@@ -8,6 +8,7 @@
 #include "Checklist.hpp"
 #include "TextEntry.hpp"
 #include <iostream>
+#include <vector>
 #include <string>
 #include <sstream>
 #include <fstream>
@@ -35,8 +36,6 @@ bool createTextEntry(string command, TextEntry journal[]);
 
 unsigned long splitUserInputCommand(string userInputCommand[]);
 unsigned long validateCommand(string command[], bool &validCommand);
-
-
 
 using namespace std;
 
@@ -335,6 +334,10 @@ bool displayTodoList(Checklist todoList[]){
 bool createTextEntry(string command, TextEntry journal[])
 {
     string title;
+    vector<string> textLines;
+    string textLine = "";
+      char ch;
+      
     if (command != "")
     {
         title = command;
@@ -345,9 +348,16 @@ bool createTextEntry(string command, TextEntry journal[])
         getline(cin, title);
     }
     
-    while ()
-    getline()
+    while ((ch = std::cin.get()) != 27)
+    {
+        while ((ch = std::cin.get()) != 27)
+        {
+            textLine += ch;
+        }
+        textLines.push_back(textLine);
+    }
     
+    journal[textEntryNumber] = TextEntry(title, textLines);
     
     return true;
 }

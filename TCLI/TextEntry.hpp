@@ -17,37 +17,37 @@
 #include <vector>
 
 using namespace std;
-static int paragraphAmount = 0;
+static int textEntryNumber = 0;
 
 class TextEntry {
     
     private:
     
     string title;
-    vector<string> paragraph;
-    vector<time_t> timeStamp;
+    vector<string> textLine;
+    time_t timeStamp;
     
     public:
     
     TextEntry(){
-        setTitle("");
-        setParagraph("");
-        setTimeStamp(paragraphAmount);
-        paragraphAmount++;
+        setTimeStamp(textEntryNumber);
+        textEntryNumber++;
     }
     
     TextEntry(string newTitle){
         setTitle(newTitle);
-        setParagraph("");
-        setTimeStamp(paragraphAmount);
-        paragraphAmount++;
+        setTimeStamp(textEntryNumber);
+        textEntryNumber++;
     }
     
-    TextEntry(string newTitle, string newParagraph){
+    TextEntry(string newTitle, vector<string> textLine){
         setTitle(newTitle);
-        setParagraph(newParagraph);
-        setTimeStamp(paragraphAmount);
-        paragraphAmount++;
+        setTextLine(textLine);
+        setTimeStamp(textEntryNumber);
+        
+        displayTextEntry();
+        
+        textEntryNumber++;
     }
     
     
@@ -56,15 +56,15 @@ class TextEntry {
         this->title = title;
     };
     
-    void setParagraph(string paragraph)
+    void setTextLine(vector<string> textLine)
     {
-        this->paragraph.push_back(paragraph);
+        this->textLine = textLine;
     };
     
     void setTimeStamp(int paragraphNumber)
     {
         auto currentTime = std::chrono::system_clock::now();
-        this->timeStamp.push_back(std::chrono::system_clock::to_time_t(currentTime));
+        timeStamp = std::chrono::system_clock::to_time_t(currentTime);
     };
     
     string getTitle()
@@ -72,17 +72,25 @@ class TextEntry {
         return title;
     }
     
-    string getparagraph (int index)
+    string getTextLine (int index)
     {
-        return paragraph[index];
+        return textLine[index];
     }
     
-    time_t getTimeStamp (int index)
+    time_t getTimeStamp()
     {
-        return timeStamp[index];
+        return timeStamp;
     }
     
-    string displayTextEntry();
+    void displayTextEntry()
+    {
+        cout << "Titled: " + getTitle() << endl;
+        for (int index = 0; index < this->textLine.size() ; index++)
+        {
+            cout << textLine[index] << endl;
+        }
+        cout << "Time written: " + getTimeStamp() << endl;
+    }
 };
 
 #endif /* TextEntry_hpp */
