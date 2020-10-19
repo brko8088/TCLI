@@ -40,7 +40,7 @@ unsigned long validateCommand(string command[], bool &validCommand);
 
 using namespace std;
 
-string TCLIversion = "0.0.1";
+string TCLIversion = "0.1.0";
 
 int main() {
     fstream inputFromFile;
