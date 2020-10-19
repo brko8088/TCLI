@@ -10,8 +10,9 @@ Originaly it used to work based on number inputs to create, delete, and modify t
  $ create "[name]" 
 
 ### Versions
-v0.0.1 New Feat: Create Command.
-v0.0.2 New Feat: ...
+- v0.0.1 New Feat: Create Command
+- v0.0.2 New Feat: Delete Command
+- v0.0.3 New Feat: Exporting capabilities for saving progress
 
 ### Work in Progress:
 
