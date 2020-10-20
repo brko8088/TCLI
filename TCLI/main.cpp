@@ -376,18 +376,24 @@ bool createTextEntry(string command, TextEntry journal[])
     while (userTypingEntry)
     {
         ch = mygetch();
+        
+        //
         if (ch == 27)
         {
             userTypingEntry = false;
         }
+        
+        // Enter Key
         else if (ch == 10)
         {
             textLines.push_back(textLine);
             textLine = "";
         }
-        else if (ch == 8)
+        
+        // Delete Key
+        else if (ch == 127)
         {
-            textLine = textLine.substr(0, textLine.length()-1);
+            textLine = textLine.substr(0, textLine.length() - 1);
         }
         else
         {
