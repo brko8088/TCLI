@@ -8,6 +8,7 @@
 #include "Checklist.hpp"
 #include "TextEntry.hpp"
 #include <iostream>
+#include <termios.h>
 #include <vector>
 #include <string>
 #include <sstream>
@@ -16,7 +17,7 @@
 
 void clear_cin();
 string printHelpMenu();
-
+int mygetch();
 
 void verifyLastUser();
 string loadPreviousSessionUserName(fstream &inputFromFile);
@@ -89,6 +90,19 @@ string printHelpMenu()
     return helpMenu.str();
 }
 
+int mygetch( ) {
+    struct termios oldt,
+    newt;
+    int ch;
+    int STDIN_FILENO = 0;
+    tcgetattr( STDIN_FILENO, &oldt );
+    newt = oldt;
+    newt.c_lflag &= ~( ICANON | ECHO );
+    tcsetattr( STDIN_FILENO, TCSANOW, &newt );
+    ch = getchar();
+    tcsetattr( STDIN_FILENO, TCSANOW, &oldt );
+    return ch;
+}
 
 /**
  This funcition will check a file on the database and let us know what's the name of the last user who used the tool.
@@ -249,14 +263,23 @@ void outputToDatabase(string name, fstream &outputToFile)
 
 bool processCommand (string command, Checklist todoList[], TextEntry journal[])
 {
+    string action;
     size_t delimeterPos = command.find(' ');
-    string action = command.substr(0, delimeterPos);
-    
-    while (action == "")
+    if (delimeterPos > 0 and delimeterPos < 200)
     {
-        command = command.substr(delimeterPos + 1);
-        delimeterPos = command.find(' ');
         action = command.substr(0, delimeterPos);
+        
+        while (action == "")
+        {
+            command = command.substr(delimeterPos + 1);
+            delimeterPos = command.find(' ');
+            action = command.substr(0, delimeterPos);
+        }
+    }
+    else
+    {
+        action = command;
+        command = "";
     }
     
     command = command.substr(delimeterPos + 1);
@@ -334,9 +357,6 @@ bool displayTodoList(Checklist todoList[]){
 bool createTextEntry(string command, TextEntry journal[])
 {
     string title;
-    vector<string> textLines;
-    string textLine = "";
-      char ch;
       
     if (command != "")
     {
@@ -348,16 +368,43 @@ bool createTextEntry(string command, TextEntry journal[])
         getline(cin, title);
     }
     
-    while ((ch = std::cin.get()) != 27)
+    vector<string> textLines;
+    string textLine = "";
+    int ch;
+    
+    bool userTypingEntry = true;
+    while (userTypingEntry)
     {
-        while ((ch = std::cin.get()) != 27)
+        ch = mygetch();
+        if (ch == 27)
+        {
+            userTypingEntry = false;
+        }
+        else if (ch == 10)
+        {
+            textLines.push_back(textLine);
+            textLine = "";
+        }
+        else if (ch == 8)
+        {
+            textLine = textLine.substr(0, textLine.length()-1);
+        }
+        else
         {
             textLine += ch;
         }
-        textLines.push_back(textLine);
     }
     
-    journal[textEntryNumber] = TextEntry(title, textLines);
+    cout << "Title: " << title << endl;
+    
+    for(size_t it = 0; it < textLines.size(); it++)
+    {
+        cout << textLines[it] << endl;
+    }
+    
+    
+    
+    //journal[textEntryNumber] = TextEntry(title, textLines);
     
     return true;
 }

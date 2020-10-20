@@ -89,7 +89,7 @@ class TextEntry {
         {
             cout << textLine[index] << endl;
         }
-        cout << "Time written: " + getTimeStamp() << endl;
+//        cout << "Time written: " + getTimeStamp() << endl;
     }
 };
 
