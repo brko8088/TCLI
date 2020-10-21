@@ -29,6 +29,7 @@ void outputToDatabase(string name, fstream &outputToFile);
 bool processCommand (string command, Checklist app[]);
 string parseCommand(string command);
 bool createNewItem(string command, Checklist app[]);
+bool deleteNewItem(string command, Checklist app[]);
 bool displayTodoList(Checklist app[]);
 
 unsigned long splitUserInputCommand(string userInputCommand[]);
@@ -38,7 +39,7 @@ unsigned long validateCommand(string command[], bool &validCommand);
 
 using namespace std;
 
-string TCLIversion = "0.0.1";
+string TCLIversion = "0.0.2";
 
 int main() {
     fstream inputFromFile;
@@ -263,13 +264,10 @@ bool processCommand (string command, Checklist app[])
     {
         return createNewItem(command, app);
     }
-    else if (action == "display")
-    {
-        return displayTodoList(app);
-    }
+    
     else if (action == "delete")
     {
-        return true;
+        return deleteNewItem(command, app);
     }
     else if (action == "modify")
     {
@@ -278,6 +276,10 @@ bool processCommand (string command, Checklist app[])
     else if (action == "duplicate")
     {
         return true;
+    }
+    else if (action == "display")
+    {
+        return displayTodoList(app);
     }
     else if (action == "exit")
     {
@@ -302,6 +304,32 @@ bool createNewItem(string command, Checklist app[])
         todoIndex++;
     }
     app[todoIndex] = Checklist(command);
+    return true;
+}
+
+bool deleteNewItem(string command, Checklist app[])
+{
+    int todoIndex;
+    
+    if (command == "")
+    {
+        cout << "item ID: ";
+        cin >> todoIndex;
+    }
+    else
+    {
+        todoIndex = stoi(command);
+    }
+   
+    app[todoIndex].deleteTodo();
+    
+    // Rearranging list so that IDs get reused.
+    for (int index = 0; index < 1000; index++){
+        if (app[index].getName() == "" and app[index + 1].getName() == "") {
+            app[index] = app[index + 1];
+        }
+    }
+    
     return true;
 }
 

@@ -95,7 +95,7 @@ public:
         return dueDate;
     }
     
-    
+    void deleteTodo();
     string printState();
     string printPriority();
     string displayItem(int i);

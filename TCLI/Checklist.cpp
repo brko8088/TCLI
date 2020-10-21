@@ -10,10 +10,18 @@
 #include <sstream>
 #include <iomanip>
 
-string Checklist::displayItem(int i)
+void Checklist::deleteTodo()
+{
+    setName("");
+    setPriority(0);
+    setItemFinished(false);
+    setDueDate("");
+}
+
+string Checklist::displayItem(int index)
 {
     stringstream item;
-    item << setw(8)  << left << i;
+    item << setw(8)  << left << index;
     item << setw(2) << left << "[";
     item << setw(2) << left << printState();
     item << setw(8) << "]";
