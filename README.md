@@ -1,8 +1,6 @@
 # CommandLine-Checklist
 
-This is the first big project i did for my CS101. 
-
-Originaly it used to work based on number inputs to create, delete, and modify tasks. I'm currently working on making this project commandLine based. It will definetly make you feel like a Hacker that is organizing his life all from the terminal.
+Formely known as Checklist 3000, it began taking shape during my first year of college. Int the beginning it used to work based on number inputs to create, delete, and modify tasks. Now, known as TCLI (Tournal Command Line Interface) is currently under development for those terminal aficionados that would like to try a different way of getting your tasks recorded and done!
 
 ## Current Version: 0.0.1b
 ## Commands Available:
