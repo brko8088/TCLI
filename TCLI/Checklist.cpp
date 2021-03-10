@@ -18,10 +18,10 @@ void Checklist::deleteTodo()
     setDueDate("");
 }
 
-string Checklist::displayItem(int index)
+string Checklist::displayItem()
 {
     stringstream item;
-    item << setw(8)  << left << index;
+    item << setw(8)  << left << ;
     item << setw(2) << left << "[";
     item << setw(2) << left << printState();
     item << setw(8) << "]";

@@ -17,7 +17,7 @@
 
 void clear_cin();
 string printHelpMenu();
-int mygetch();
+int getChar();
 
 void verifyLastUser();
 string loadPreviousSessionUserName(fstream &inputFromFile);
@@ -43,6 +43,7 @@ unsigned long validateCommand(string command[], bool &validCommand);
 
 using namespace std;
 
+int TotalOfTodos = 0;
 string TCLIversion = "0.1.0";
 
 int main() {
@@ -93,7 +94,7 @@ string printHelpMenu()
     return helpMenu.str();
 }
 
-int mygetch( ) {
+int getChar( ) {
     struct termios oldt,
     newt;
     int ch;
@@ -218,7 +219,7 @@ void populateDatabaseFromFile(string name, fstream &inputFromFile, Checklist tod
     while(getline(inputFromFile, inputBuffer))
     {
         parseItemsOnDatabase(inputBuffer, todoIndex, todoList);
-        todoIndex++;
+        TotalOfTodos++;
     }
     
     cout << "\n\n";
@@ -331,11 +332,12 @@ string parseCommand(string command){
 
 bool createNewItem(string command, Checklist todoList[])
 {
-    int todoIndex = 0;
-    while (todoList[todoIndex].getName() != ""){
-        todoIndex++;
+    int index = 0;
+    while (todoList[index].getName() != ""){
+        index++;
     }
-    todoList[todoIndex] = Checklist(command);
+    todoList[index] = Checklist(command);
+    TotalOfTodos++;
     return true;
 }
 
@@ -354,9 +356,10 @@ bool deleteNewItem(string command, Checklist todoList[])
     }
    
     todoList[todoIndex].deleteTodo();
+    TotalOfTodos--;
     
     // Rearranging list so that IDs get reused.
-    for (int index = 0; index < 1000; index++){
+    for (int index = 0; index <= TotalOfTodos; index++){
         if (todoList[index].getName() == "" and todoList[index + 1].getName() == "") {
             todoList[index] = todoList[index + 1];
         }
@@ -376,9 +379,9 @@ bool displayTodoList(Checklist todoList[]){
     setw(25)<< left << "Date that is due" << endl;
     cout << "------------------------------------------------------------------------------------" << endl;
     
-    for (int todoIndex = 0; todoIndex < 1000; todoIndex++){
-        if (todoList[todoIndex].getName() != "") {
-            cout << todoList[todoIndex].displayItem(todoIndex) << endl;
+    for (int index = 0; index <= TotalOfTodos; index++){
+        if (todoList[index].getName() != "") {
+            cout << todoList[index].displayItem() << endl;
         }
     }
     
@@ -407,7 +410,7 @@ bool createTextEntry(string command, TextEntry journal[])
     bool userTypingEntry = true;
     while (userTypingEntry)
     {
-        ch = mygetch();
+        ch = getChar();
         
         //
         if (ch == 27)

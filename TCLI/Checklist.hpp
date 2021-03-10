@@ -17,7 +17,7 @@ using namespace std;
 class Checklist
 {
 private:
-    int ID;
+    int ID = 0;
     string todoName;
     int priority;
     bool isItDone;
@@ -50,49 +50,60 @@ public:
     /*
      Setters
      */
+    void setID(int newID)
+    {
+        this->ID = newID;
+    }
+    
     void setName(string name)
     {
-        todoName = name;
+        this->todoName = name;
     };
     
     void setPriority(int number)
     {
-        priority = number;
+        this->priority = number;
     };
     
     void setItemFinished(bool condition)
     {
-        isItDone = condition;
+        this->isItDone = condition;
     };
     
     void setDueDate(string date)
     {
-        dueDate = date;
+        this->dueDate = date;
     };
     
     
     /*
      Getters
      */
+    int getID()
+    {
+        return this->ID;
+        
+    }
+    
     string getName()
     {
-        return todoName;
+        return this->todoName;
     }
     
     int getPriority()
     {
-        return priority;
+        return this->priority;
         
     }
     
     bool getState()
     {
-        return isItDone;
+        return this->isItDone;
     }
     
     string getDueDate()
     {
-        return dueDate;
+        return this->dueDate;
     }
     
     void deleteTodo();

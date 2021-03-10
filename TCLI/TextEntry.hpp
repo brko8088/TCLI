@@ -82,15 +82,7 @@ class TextEntry {
         return timeStamp;
     }
     
-    void displayTextEntry()
-    {
-        cout << "Titled: " + getTitle() << endl;
-        for (int index = 0; index < this->textLine.size() ; index++)
-        {
-            cout << textLine[index] << endl;
-        }
-//        cout << "Time written: " + getTimeStamp() << endl;
-    }
+    void displayTextEntry();
 };
 
 #endif /* TextEntry_hpp */
