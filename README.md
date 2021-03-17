@@ -25,6 +25,3 @@ Create and delete to dos with terminal commands. What git does for code, TCLI do
  - duplicate "[ID]/[name]"
 
  - Working on adding a Journal Entry command
-
-
-test
